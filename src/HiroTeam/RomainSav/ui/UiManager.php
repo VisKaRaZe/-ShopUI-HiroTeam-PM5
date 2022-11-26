@@ -212,7 +212,6 @@ class UiManager
     {
         $form = new CustomForm(function (Player $player, $data) use ($category, $index) {
             $target = $data;
-	    $item1 = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1]);
             if (is_null($target)) {
                 $this->categoryItems($player, $category);
                 return;
@@ -290,7 +289,7 @@ class UiManager
                    });
         $itemConfig = $this->main->getConfig()->get('shop')[$category]['items'][$index];
         $itemIdMeta = explode(":", $itemConfig['idMeta']);
-        
+        $item1 = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1]);
         $form->setTitle($itemConfig['name']);
         $form->addLabel("§6Vous avez §e" . self::getItemCount($player, $item1) . " " . $itemConfig['name'] . "\n§aAcheter : " . $itemConfig['buy'] . "\$\n§cVendre : " . $itemConfig['sell'] . "\$");
         $form->addDropdown("Items", [$itemConfig['name']]);
