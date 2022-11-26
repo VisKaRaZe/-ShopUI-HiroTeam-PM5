@@ -1,0 +1,8 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/VisKaRaZe/-ShopUI-HiroTeam-PM5
+build-by-default: true
+branches:
+- main
+projects:
+  ShopUI-HiroTeam-PM5:
+    path: ""
+...
