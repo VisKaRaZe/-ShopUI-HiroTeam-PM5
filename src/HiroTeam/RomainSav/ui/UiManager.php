@@ -212,6 +212,7 @@ class UiManager
     {
         $form = new CustomForm(function (Player $player, $data) use ($category, $index) {
             $target = $data;
+	    $item1 = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1]);
             if (is_null($target)) {
                 $this->categoryItems($player, $category);
                 return;
@@ -291,7 +292,7 @@ class UiManager
         $itemIdMeta = explode(":", $itemConfig['idMeta']);
         
         $form->setTitle($itemConfig['name']);
-        $form->addLabel("§6Vous avez §e" . self::getItemCount($player, (int)$itemIdMeta[0], $itemIdMeta[1]) . " " . $itemConfig['name'] . "\n§aAcheter : " . $itemConfig['buy'] . "\$\n§cVendre : " . $itemConfig['sell'] . "\$");
+        $form->addLabel("§6Vous avez §e" . self::getItemCount($player, $item1) . " " . $itemConfig['name'] . "\n§aAcheter : " . $itemConfig['buy'] . "\$\n§cVendre : " . $itemConfig['sell'] . "\$");
         $form->addDropdown("Items", [$itemConfig['name']]);
         $form->addToggle("Acheter/Vendre", false);
         $form->addInput("§6Indiquez la quantitée");
@@ -324,12 +325,12 @@ class UiManager
         return array_sum($result);
     }
     
-    public static function getItemCount(Player $player, int $id, int $meta = 0) : int 
+    public static function getItemCount(Player $player, $item1) : int 
     {
         $count = 0;
         $content = array_merge($player->getInventory()->getContents(), $player->getArmorInventory()->getContents());
         foreach ($content as $item) {
-            if ($item->getTypeId() === $id and $item->getStateMeta() === $meta) $count += $item->getCount();
+           if ($item->getTypeId() === $item1->getTypeId()) $count += $item->getCount();
         }
         return $count;
 
