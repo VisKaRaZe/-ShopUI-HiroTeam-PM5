@@ -132,7 +132,7 @@ class UiManager
             }
 
             $itemIdMeta = explode(":", $itemConfig['idMeta']);
-            $item = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1], $target[2]);
+            $item = StringToItemParser::getInstance()->parse($itemIdMeta[0], $target[2]);
             if (!$player->getInventory()->canAddItem($item)) {
                 $player->sendMessage($this->main->getConfig()->get('no-place-in-inventory'));
                 return;
@@ -175,7 +175,7 @@ class UiManager
 			if(is_numeric($target[3])) {
             $itemConfig = $this->main->getConfig()->get('shop')[$category]['items'][$index];
             $itemIdMeta = explode(":", $itemConfig['idMeta']);
-            $item = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1], $target[2]);
+            $item = StringToItemParser::getInstance()->parse($itemIdMeta[0], $target[2]);
 
             if (!$player->getInventory()->contains($item)) {
                 $player->sendMessage($this->main->getConfig()->get('not-enought-items'));
@@ -194,7 +194,7 @@ class UiManager
 
         $itemConfig = $this->main->getConfig()->get('shop')[$category]['items'][$index];
         $itemIdMeta = explode(":", $itemConfig['idMeta']);
-        $item = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1]);
+        $item = StringToItemParser::getInstance()->parse($itemIdMeta[0]);
 
         $form->setTitle($itemConfig['name']);
         $form->addLabel("§cVendre : " . $itemConfig['sell'] . "\$");
@@ -220,7 +220,7 @@ class UiManager
 			if (is_numeric($target[3])) {
             $itemConfig = $this->main->getConfig()->get('shop')[$category]['items'][$index];
             $itemIdMeta = explode(":", $itemConfig['idMeta']);
-            $item = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1], (int)$target[3]);
+            $item = StringToItemParser::getInstance()->parse($itemIdMeta[0], (int)$target[3]);
 
             if (!$target[2]) {
 
@@ -289,7 +289,7 @@ class UiManager
                    });
         $itemConfig = $this->main->getConfig()->get('shop')[$category]['items'][$index];
         $itemIdMeta = explode(":", $itemConfig['idMeta']);
-        $item1 = LegacyStringToItemParser::getInstance()->parse($itemIdMeta[0], $itemIdMeta[1]);
+        $item1 = StringToItemParser::getInstance()->parse($itemIdMeta[0]);
         $form->setTitle($itemConfig['name']);
         $form->addLabel("§6Vous avez §e" . self::getItemCount($player, $item1) . " " . $itemConfig['name'] . "\n§aAcheter : " . $itemConfig['buy'] . "\$\n§cVendre : " . $itemConfig['sell'] . "\$");
         $form->addDropdown("Items", [$itemConfig['name']]);
